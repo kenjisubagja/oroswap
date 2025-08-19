@@ -10,6 +10,10 @@ cd oroswap
 edit file .env nya
 ```bash 
 PRIVATE_KEY_1="your-mnemonic"
+# delay tx/add liquid 60000 = 60 detik (1 menit)
+TX_DELAY=60000
+# Delay swap 25000 = 25 detik 
+SWAP_DELAY=25000
 ```
 install pendukung script
 ```bash 
