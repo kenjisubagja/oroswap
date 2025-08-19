@@ -22,7 +22,7 @@ const colors = {
 const logger = {
   info: (msg) => console.log(`${colors.green}[✓] ${msg}${colors.reset}`),
   warn: (msg) => console.log(`${colors.yellow}[⚠] ${msg}${colors.reset}`),
-  error: (msg) => console.log(`${colors.red}[✗] ${msg}${colors.reset}`),
+  error: (msg) => console.log(`${colors.red}[❌] ${msg}${colors.reset}`),
   success: (msg) => console.log(`${colors.green}[✅] ${msg}${colors.reset}`),
   loading: (msg) => console.log(`${colors.cyan}[⟳] ${msg}${colors.reset}`),
   step: (msg) => console.log(`${colors.magenta}[➤] ${msg}${colors.reset}`),
@@ -131,7 +131,7 @@ async function performSwap(wallet, address, amount, token, swapNumber, maxRetrie
       const funds = coins(microAmount, DENOM_ZIG);
       logger.loading(`Swap ${swapNumber}: ${amount.toFixed(5)} ZIG -> ${token.name} (Attempt ${retries+1}/${maxRetries})`);
       const result = await client.execute(address, token.pairContract, msg, 'auto', 'Swap', funds);
-      logger.success(`Swap ${swapNumber} completed! Tx: ${EXPLORER_URL}${result.transactionHash}`);
+      logger.success(`Swap ${swapNumber} SUKSES! Blockchain Explore: ${EXPLORER_URL}${result.transactionHash}`);
       return result;
     } catch (error) {
       retries++;
@@ -154,14 +154,14 @@ async function executeTransactionCycle(wallet, address, cycleNumber, walletNumbe
     const token = TOKENS[i];
     if (!token.pairContract) continue;
     const balance = zigBalance;
-    if (balance < 0.0001) { logger.warn(`Skipping swap to ${token.name}: insufficient balance`); continue; }
+    if (balance < 0.0001) { logger.warn(`Skip swap to ${token.name}: insufficient balance`); continue; }
     const swapAmount = getRandomSwapAmount(balance);
     const result = await performSwap(wallet, address, swapAmount, token, i+1);
     if (result) successfulSwaps++;
     await new Promise(resolve => setTimeout(resolve, 1000));
   }
 
-  logger.info(`All swaps done: ${successfulSwaps}/${TOKENS.length} successful`);
+  logger.info(`semua sudah di swap: ${successfulSwaps}/${TOKENS.length} successful`);
 }
 
 async function main() {
