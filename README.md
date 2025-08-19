@@ -1,5 +1,5 @@
 
-# BOT AUTO SWAP DI OROSWAP
+# BOT AUTO SWAP AND AUTO ADD LIQUID DI OROSWAP
 
 Kagak usah basa basi langsung comot jangan lupa bintang nya
 
