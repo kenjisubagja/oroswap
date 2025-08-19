@@ -1,7 +1,7 @@
 
 # BOT AUTO SWAP DI OROSWAP
 
-Kagak usah basa basi langsung comong jangan lupa bintang nya
+Kagak usah basa basi langsung comot jangan lupa bintang nya
 
 ```bash 
 git clone https://github.com/kenjisubagja/oroswap/
