@@ -23,7 +23,7 @@ Run buat auto swap
 ```bash 
 npm start
 ```
-Run buat add liquid ```( lebih aman swap dulu 1 ZIG ke ORO,RWA123,MOON,PUMP,STZIG,AIR,STASH,TATTOO )``` Buat apa? biar gak kurang token lu pas add liquid bujang
+Run buat add liquid ```( lebih aman swap dulu 1-3 ZIG ke ORO,RWA123,MOON,PUMP,STZIG,STASH,TATTOO )``` Buat apa? biar gak kurang token lu pas add liquid bujang
 ```bash 
 node liq.js
 ```
