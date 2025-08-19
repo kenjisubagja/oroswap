@@ -4,7 +4,33 @@ import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 
 dotenv.config();
+const colors = {
+  reset: "\x1b[0m",
+  red: "\x1b[31m",
+  bold: "\x1b[1m",
+};
 
+const logger = {
+  banner: () => {
+    console.log(`${colors.red}${colors.bold}`);
+    console.log("#########################################################");
+    console.log(" ______                        ______                                    ");
+    console.log("/      \\                      /      \\                                   ");
+    console.log("|  $$$$$$\\  ______    ______  |  $$$$$$\\ __   __   __   ______    ______  ");
+    console.log("| $$  | $$ /      \\  /      \\ | $$___\\$$|  \\ |  \\ |  \\ |      \\  /      \\ ");
+    console.log("| $$  | $$|  $$$$$$\\|  $$$$$$\\ \\$$    \\ | $$ | $$ | $$  \\$$$$$$\\|  $$$$$$\\");
+    console.log("| $$  | $$| $$   \\$$| $$  | $$ _\\$$$$$$\\| $$ | $$ | $$ /      $$| $$  | $$");
+    console.log("| $$__/ $$| $$      | $$__/ $$|  \\__| $$| $$_/ $$_/ $$|  $$$$$$$| $$__/ $$");
+    console.log(" \\$$    $$| $$       \\$$    $$ \\$$    $$ \\$$   $$   $$ \\$$    $$| $$    $$");
+    console.log("  \\$$$$$$  \\$$        \\$$$$$$   \\$$$$$$   \\$$$$$\\$$$$   \\$$$$$$$| $$$$$$$ ");
+    console.log("                                                                | $$      ");
+    console.log("                                                                | $$      ");
+    console.log("                                                                 \\$$      ");
+    console.log("               Oroswap By @kenjisubagja               ");
+    console.log("#########################################################");
+    console.log(`${colors.reset}`);
+  },
+};
 const RPC_ENDPOINT = "https://rpc.zigscan.net/";
 const BASE_AMOUNT = "1000"; // 
 
@@ -116,6 +142,7 @@ async function addLiquidity(client, sender, poolAddr, poolInfo) {
 
 // ======================= MAIN =======================
 async function main() {
+  logger.banner();
   const mnemonic = process.env.PRIVATE_KEY_1;
   if (!mnemonic) throw new Error("PRIVATE_KEY_1 tidak ditemukan di .env");
 
