@@ -11,12 +11,17 @@ edit file .env nya
 ```bash 
 PRIVATE_KEY_1="your-mnemonic"
 ```
-run program nya
+install pendukung script
 ```bash 
 npm install
 ```
+Run buat auto swap
 ```bash 
 npm start
+```
+Run buat add liquid ```( lebih aman swap dulu 1 ZIG ke ORO,RWA123,MOON,PUMP,STZIG,AIR,STASH,TATTOO )``` Buat apa? biar gak kurang token lu pas add liquid bujang
+```bash 
+node liq.js
 ```
 
 ## Pertanyaan error 
@@ -27,6 +32,15 @@ npm start
 🤔 Enter number of transactions to execute apa?
 
 😎 terserah mau looping/jalanin swap berapa kali swap
+
+🤔 cara nambah biar add liquid ke banyak token? 
+
+😎 bongkar file liq.js nya nanti ada ```// tambahkan pool lain di sini kalau lu mau dan hafal contract_pair nya ``` tambah di atas tulisan ini
+
+🤔 Dapet pair_addr dari mana? 
+
+😎 liat file pair_addr.txt nanti lu cari token yang mau lu add liquid nanti ada variabel ```pair_addr``` lu copy 
+
 
 
 ## 🔗 follow aing 
