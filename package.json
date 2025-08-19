@@ -1,0 +1,23 @@
+{
+  "name": "oroswap-auto-bot",
+  "version": "1.0.0",
+  "description": "Automated trading bot for OroSwap DEX on Zig Network",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "postinstall": "echo 'Dependencies installed!'"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "@cosmjs/cosmwasm-stargate": "^0.32.4",
+    "@cosmjs/crypto": "^0.32.4",
+    "@cosmjs/proto-signing": "^0.32.4",
+    "@cosmjs/stargate": "^0.32.4",
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
