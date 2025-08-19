@@ -5,6 +5,12 @@ const { SigningCosmWasmClient } = require('@cosmjs/cosmwasm-stargate');
 const { GasPrice, coins } = require('@cosmjs/stargate');
 const { DirectSecp256k1HdWallet, DirectSecp256k1Wallet } = require('@cosmjs/proto-signing');
 
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+const SWAP_DELAY = parseInt(process.env.SWAP_DELAY || "25000");
+const TX_DELAY = parseInt(process.env.TX_DELAY || "0", 10);
+
 const colors = {
   reset: "\x1b[0m",
   red: "\x1b[31m",
@@ -158,7 +164,11 @@ async function executeTransactionCycle(wallet, address, cycleNumber, walletNumbe
     const swapAmount = getRandomSwapAmount(balance);
     const result = await performSwap(wallet, address, swapAmount, token, i+1);
     if (result) successfulSwaps++;
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  if (i < TOKENS.length - 1) {
+      logger.info(`⏳ Menunggu ${SWAP_DELAY / 1000} detik sebelum swap berikutnya...`);
+      await delay(SWAP_DELAY);
+    }
+    
   }
 
   logger.info(`semua sudah di swap: ${successfulSwaps}/${TOKENS.length} successful`);
@@ -185,6 +195,10 @@ async function main() {
     const address = await getAccountAddress(wallet);
     for (let cycle = 1; cycle <= numTransactions; cycle++) {
       await executeTransactionCycle(wallet, address, cycle, walletIndex + 1);
+            if (cycle < numTransactions) {
+        console.log(`⏳ Menunggu ${TX_DELAY / 1000} detik sebelum transaksi berikutnya...`);
+        await delay(TX_DELAY);
+      }
     }
   }
 
