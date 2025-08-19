@@ -7,7 +7,7 @@ Kagak usah basa basi langsung comot jangan lupa bintang nya
 git clone https://github.com/kenjisubagja/oroswap/
 cd oroswap
 ```
-edit file .env nya
+edit file .env nya (MNEMONIC DAN DELAY TX)
 ```bash 
 PRIVATE_KEY_1="your-mnemonic"
 # delay tx/add liquid 60000 = 60 detik (1 menit)
