@@ -166,7 +166,6 @@ async function main() {
     "zig1ymjmap5rj3pg2lye654923df3ccz6zgcuku6t5a4nglh6ed42zsqmht0lf",
     "zig17wzgjl65rdtz6upuppquda48mea9k6ct2kl3thwn5w6cuw8kz3nsy409xd",
     "zig19zqxslng99gw98ku3dyqaqy0c809kwssw7nzhea9x40jwxjugqvs5xaghj",
-    "zig1x9ayv267jnpvfmjmja4wk037w00uz4g0x5pyh6yeut0my3hhpfqq4wg3mk",
     "zig10fwkyedm2p3v50p8q078v9qy4tfc04dqkzm8ux74mp0yd5yaf06q86vdc4",
     "zig1eqggyhjj23cl3r7j5apnyg7mxrm639zeh46xq24eeccdh922mxjqq0kd4h",
 
