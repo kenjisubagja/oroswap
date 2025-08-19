@@ -34,8 +34,10 @@ const logger = {
 const RPC_ENDPOINT = "https://rpc.zigscan.net/";
 const BASE_AMOUNT = "1000"; // 
 
-// ======================= Fungsi Utility =======================
-// ======================= Fungsi Utility =======================
+const DELAY = parseInt(process.env.TX_DELAY || "5000", 10);
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 async function validatePools(client, pools) {
   const validPools = [];
   for (const addr of pools) {
@@ -177,6 +179,8 @@ async function main() {
   for (const { addr, poolInfo } of validPools) {
     console.log(`🚀 Adding liquidity ke pool ${addr} ...`);
     await addLiquidity(client, account, addr, poolInfo);
+     console.log(`⏳ Tunggu ${DELAY / 1000} detik sebelum lanjut...`);
+  await sleep(DELAY);
   }
 }
 
