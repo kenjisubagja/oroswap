@@ -1,43 +1,22 @@
 import fs from "fs";
 import dotenv from "dotenv";
+import readline from "readline";
 import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 
 dotenv.config();
-const colors = {
-  reset: "\x1b[0m",
-  red: "\x1b[31m",
-  bold: "\x1b[1m",
-};
-
-const logger = {
-  banner: () => {
-    console.log(`${colors.red}${colors.bold}`);
-    console.log("#########################################################");
-    console.log(" ______                        ______                                    ");
-    console.log("/      \\                      /      \\                                   ");
-    console.log("|  $$$$$$\\  ______    ______  |  $$$$$$\\ __   __   __   ______    ______  ");
-    console.log("| $$  | $$ /      \\  /      \\ | $$___\\$$|  \\ |  \\ |  \\ |      \\  /      \\ ");
-    console.log("| $$  | $$|  $$$$$$\\|  $$$$$$\\ \\$$    \\ | $$ | $$ | $$  \\$$$$$$\\|  $$$$$$\\");
-    console.log("| $$  | $$| $$   \\$$| $$  | $$ _\\$$$$$$\\| $$ | $$ | $$ /      $$| $$  | $$");
-    console.log("| $$__/ $$| $$      | $$__/ $$|  \\__| $$| $$_/ $$_/ $$|  $$$$$$$| $$__/ $$");
-    console.log(" \\$$    $$| $$       \\$$    $$ \\$$    $$ \\$$   $$   $$ \\$$    $$| $$    $$");
-    console.log("  \\$$$$$$  \\$$        \\$$$$$$   \\$$$$$$   \\$$$$$\\$$$$   \\$$$$$$$| $$$$$$$ ");
-    console.log("                                                                | $$      ");
-    console.log("                                                                | $$      ");
-    console.log("                                                                 \\$$      ");
-    console.log("               Oroswap By @kenjisubagja               ");
-    console.log("#########################################################");
-    console.log(`${colors.reset}`);
-  },
-};
+const TX_DELAY = parseInt(process.env.TX_DELAY || "5000", 10);
 const RPC_ENDPOINT = "https://rpc.zigscan.net/";
 const BASE_AMOUNT = "1000"; // 
 
-const DELAY = parseInt(process.env.TX_DELAY || "5000", 10);
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+function prompt(question) {
+  return new Promise((resolve) => rl.question(question, resolve));
 }
+
 // ======================= Fungsi Utility =======================
 async function validatePools(client, pools) {
   const validPools = [];
@@ -145,7 +124,6 @@ async function addLiquidity(client, sender, poolAddr, poolInfo) {
 
 // ======================= MAIN =======================
 async function main() {
-  logger.banner();
   const mnemonic = process.env.PRIVATE_KEY_1;
   if (!mnemonic) throw new Error("PRIVATE_KEY_1 tidak ditemukan di .env");
 
@@ -171,17 +149,39 @@ async function main() {
 
 
 
-    // tambahkan pool lain di sini kalau lu mau dan hafal pair_addr nya
+    // tambahkan pool lain di sini kalau lu mau dan hafal contract_pair nya
   ];
 
   const validPools = await validatePools(client, pools);
 
-  for (const { addr, poolInfo } of validPools) {
-    console.log(`🚀 Adding liquidity ke pool ${addr} ...`);
-    await addLiquidity(client, account, addr, poolInfo);
-      console.log(`⏳ Tunggu ${DELAY / 1000} detik sebelum lanjut...`);
-  await sleep(DELAY);
-  }
+const input = await prompt("Masukkan jumlah transaksi per pool: ");
+const numTransactions = parseInt(input);
+if (isNaN(numTransactions) || numTransactions <= 0) {
+    console.log("❌ Jumlah transaksi tidak valid");
+    rl.close();
+    return;
 }
 
+// Looping tanpa henti sampai jumlah transaksi per pool tercapai
+let currentCycle = 1;
+while (currentCycle <= numTransactions) {
+    console.log(`\n🔄 Mulai transaksi ke-${currentCycle} untuk semua pool`);
+    
+    for (const { addr, poolInfo } of validPools) {
+        console.log(`🚀 Menambahkan liquidity ke pool ${addr} (Transaksi ${currentCycle}/${numTransactions}) ...`);
+        await addLiquidity(client, account, addr, poolInfo);
+
+        // delay antar transaksi
+        if (currentCycle < numTransactions) {
+            console.log(`⏳ Menunggu ${TX_DELAY / 1000} detik sebelum transaksi berikutnya...`);
+            await new Promise(res => setTimeout(res, TX_DELAY));
+        }
+    }
+
+    currentCycle++;
+}
+
+console.log(`✅ Semua transaksi selesai!`);
+rl.close();
+}
 main();
