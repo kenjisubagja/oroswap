@@ -10,6 +10,11 @@ cd oroswap
 edit file .env nya (MNEMONIC DAN DELAY TX)
 ```bash 
 PRIVATE_KEY_1="your-mnemonic"
+PRIVATE_KEY_2="your-mnemonic"
+PRIVATE_KEY_3="your-mnemonic"
+PRIVATE_KEY_4="your-mnemonic"
+PRIVATE_KEY_5="your-mnemonic"
+PRIVATE_KEY_6="your-mnemonic"
 # delay tx/add liquid 60000 = 60 detik (1 menit)
 TX_DELAY=60000
 # Delay swap 25000 = 25 detik 
@@ -19,11 +24,11 @@ install pendukung script
 ```bash 
 npm install
 ```
-Run buat auto swap
+Run buat auto swap (Bisa multi wallet)
 ```bash 
 npm start
 ```
-Run buat add liquid ```( lebih aman swap dulu 1-3 ZIG ke ORO,RWA123,MOON,PUMP,STZIG,STASH,TATTOO )``` Buat apa? biar gak kurang token lu pas add liquid bujang
+Run buat add liquid ```( lebih aman swap dulu 1-3 ZIG ke ORO,RWA123,MOON,PUMP,STZIG,STASH,TATTOO )``` Buat apa? biar gak kurang token lu pas add liquid bujang (belum bisa multi wallet)
 ```bash 
 node liq.js
 ```
